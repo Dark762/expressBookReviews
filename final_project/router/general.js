@@ -3,15 +3,9 @@ const express = require('express');
 const public_users = express.Router();
 const axios = require("axios");
 
+const books = require("./booksdb").books;
+const users = require("./booksdb").users;
 
-let users = [];
-
-let books = [];
-
-books.push({ "title": "Harry Potter 1", "isbn": "ABC123", "author": "Joanne Rowling", "reviews": [] });
-books.push({ "title": "Harry Potter 2", "isbn": "EFG123", "author": "Joanne Rowling", "reviews": [] });
-books.push({ "title": "Harry Potter 3", "isbn": "HIJ123", "author": "Joanne Rowling", "reviews": [] });
-books.push({ "title": "Harry Potter 4", "isbn": "KLM123", "author": "Joanne Rowling", "reviews": [] });
 
 public_users.get('/', async function (req, res) {
     var result = await res.status(200).json(books);
@@ -38,10 +32,10 @@ public_users.get('/isbn/:isbn', async function (req, res) {
 
 });
 
-public_users.get('/author/:author', function (req, res) {
+public_users.get('/author/:author', async function (req, res) {
     const author = req.params.author;
 
-    let book = books.filter((book) => {
+    let book = await books.filter((book) => {
         if (book.author === author) {
             return book;
         }
@@ -54,10 +48,10 @@ public_users.get('/author/:author', function (req, res) {
     }
 });
 
-public_users.get('/title/:title', function (req, res) {
+public_users.get('/title/:title', async function (req, res) {
     const title = req.params.title;
 
-    let book = books.filter((book) => {
+    let book = await books.filter((book) => {
         if (book.title === title) {
             return book;
         }

@@ -1,8 +1,8 @@
 //This contains the skeletal implementations for the routes which an authorized user can access.
 const express = require('express');
 const regd_users = express.Router();
-const users = require('./general').users;
-const books = require('./general').books;
+const users = require('./booksdb').users;
+const books = require('./booksdb').books;
 const jwt = require('jsonwebtoken');
 
 
